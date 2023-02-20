@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from django.http.response import JsonResponse
+from django.http import JsonResponse
 
 #importing models from PhoneApp
 from PhoneApp.models import CallList
@@ -24,3 +24,5 @@ def CallAPI(request, id=0):
         if call_serializer.is_valid():
             call_serializer.save()
             return JsonResponse("Added Sucessfully", safe = False)
+        else:
+            return JsonResponse('False JSON', safe = False)

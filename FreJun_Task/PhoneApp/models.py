@@ -4,6 +4,6 @@ from django.db import models
 
 class CallList(models.Model):
     id = models.AutoField(primary_key=True)
-    from_number = models.CharField(max_length=12)
-    to_number = models.CharField(max_length=12)
-    start_time = models.DateTimeField()
+    from_number = models.CharField(max_length=50)
+    to_number = models.CharField(max_length=50)
+    start_time = models.DateTimeField(auto_now_add = True)
