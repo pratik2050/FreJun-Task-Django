@@ -10,14 +10,18 @@ from PhoneApp.serializers import CallListSerializer
 # Create your views here.
 
 @csrf_exempt        #all domain calling
-def CallAPI(request, id=0):
+def getAPI(request, id=0):
 
     if request.method == "GET":
-        calls = CallList.objects.all()
+        calls = CallList.objects.filter(from_number = id)
+        calls = CallList.objects.filter(to_number = id)
+        
         call_serializer = CallListSerializer(calls, many = True)
         return JsonResponse(call_serializer.data, safe = False)
 
-    elif request.method == "POST":
+@csrf_exempt
+def postApi(request):
+    if request.method == "POST":
         call_data = JSONParser().parse(request)
         call_serializer = CallListSerializer(data = call_data)
 
@@ -25,4 +29,4 @@ def CallAPI(request, id=0):
             call_serializer.save()
             return JsonResponse("Added Sucessfully", safe = False)
         else:
-            return JsonResponse('False JSON', safe = False)
+            return JsonResponse('Faulty JSON', safe = False)
