@@ -13,9 +13,7 @@ from PhoneApp.serializers import CallListSerializer
 def getAPI(request, id=0):
 
     if request.method == "GET":
-        calls = CallList.objects.filter(from_number = id)
-        calls = CallList.objects.filter(to_number = id)
-        
+        calls = CallList.objects.filter(from_number = id) | CallList.objects.filter(to_number = id)
         call_serializer = CallListSerializer(calls, many = True)
         return JsonResponse(call_serializer.data, safe = False)
 
