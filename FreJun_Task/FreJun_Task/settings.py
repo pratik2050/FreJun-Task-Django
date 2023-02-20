@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'PhoneApp.apps.PhoneappConfig'
+
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True        #allowing all cros domain api calls
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,8 +82,12 @@ WSGI_APPLICATION = 'FreJun_Task.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            "host": "mongodb+srv://FreJun:FreJun_Pratik@cluster0.tr9balb.mongodb.net/?retryWrites=true&w=majority",
+            "name": "FreJun",
+            "authMechanism": "SCRAM-SHA-1"      #needed for Cloud DB in Mongo
+        }
     }
 }
 
